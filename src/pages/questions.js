@@ -23,15 +23,23 @@ function Questions() {
             options:["Washington DC","New York","Los Angeles","Chicago"]
         }
       ]
+              
+    const [questions, setQuestions] = React.useState([questionList]);
+    const [answers, setAnswers] = React.useState([]);
       const updateAnswers=()=>{
         let answers=[];
         questionList.map((question)=>{
             let answer=document.querySelector(`input[name="${question.id}"]:checked`).value;
             answers.push(answer);
             console.log(answers);
+            
+            
         })
         console.log(answers);
     }
+    useEffect(() => {
+        localStorage.setItem('answers',JSON.stringify(answers),[answers]);
+    })
       const renderQuestions=questionList.map((question)=>{
         return (
             <div  id={question.id}>
@@ -47,15 +55,12 @@ function Questions() {
             </div>
         )
     })
-        
-    const [questions, setQuestions] = React.useState([questionList]);
-    const [answers, setAnswers] = React.useState([]);
     return(
         <div>
             <h1>Questions</h1>
             {renderQuestions}
-            <Link to={{pathname:"/results"}} answers={answers}>
-                <button>Submit</button>
+            <Link to={{pathname:"/results"}} state={answers}>
+                Go to Results
             </Link>
         </div>
     )
