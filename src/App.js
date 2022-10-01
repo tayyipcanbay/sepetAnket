@@ -1,23 +1,36 @@
-import logo from './logo.svg';
-import './App.css';
+import Homepage from './pages/homepage';
+import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
+import Questions from "./pages/questions";
+import Results from './pages/results';
 
 function App() {
+  const questionList=[
+    {
+      id:1,
+      question:"What is the capital of India?",
+      answer:"New Delhi"
+    },
+    {
+      id:2,
+      question:"What is the capital of Australia?",
+      answer:"Canberra"
+    },
+    {
+      id:3,
+      question:"What is the capital of USA?",
+      answer:"Washington DC"
+    }
+  ]
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Router>
+        <Routes>
+          <Route exact path="/" element={<Homepage />} />
+          <Route exact path="/questions" element={<Questions />} />
+          <Route exact path='/results' element={<Results/>} />
+        </Routes>
+      </Router>
+      
     </div>
   );
 }
