@@ -23,14 +23,23 @@ function Questions() {
             options:["Washington DC","New York","Los Angeles","Chicago"]
         }
       ]
+      const updateAnswers=()=>{
+        let answers=[];
+        questionList.map((question)=>{
+            let answer=document.querySelector(`input[name="${question.id}"]:checked`).value;
+            answers.push(answer);
+            console.log(answers);
+        })
+        console.log(answers);
+    }
       const renderQuestions=questionList.map((question)=>{
         return (
-            <div id={question.id}>
+            <div  id={question.id}>
                 <h3>{question.title}</h3>
                 <ul>
                     {question.options.map((option)=>{
                         return <li>
-                            <input type="radio" name={question.id} value={option} />{option}
+                            <input type="radio" name={question.id} value={option} onChange={updateAnswers} />{option}
                         </li>
                     })
                 }
@@ -38,14 +47,6 @@ function Questions() {
             </div>
         )
     })
-    const updateAnswers=()=>{
-        let answers=[];
-        questionList.map((question)=>{
-            let answer=document.querySelector(`input[name="${question.id}"]:checked`).value;
-            answers.push(answer);
-        })
-        console.log(answers);
-    }
         
     const [questions, setQuestions] = React.useState([questionList]);
     const [answers, setAnswers] = React.useState([]);
@@ -54,7 +55,7 @@ function Questions() {
             <h1>Questions</h1>
             {renderQuestions}
             <Link to={{pathname:"/results"}} answers={answers}>
-                <button onClick={updateAnswers}>Submit</button>
+                <button>Submit</button>
             </Link>
         </div>
     )
