@@ -38,6 +38,14 @@ function Questions() {
             </div>
         )
     })
+    const updateAnswers=()=>{
+        let answers=[];
+        questionList.map((question)=>{
+            let answer=document.querySelector(`input[name="${question.id}"]:checked`).value;
+            answers.push(answer);
+        })
+        console.log(answers);
+    }
         
     const [questions, setQuestions] = React.useState([questionList]);
     const [answers, setAnswers] = React.useState([]);
@@ -45,20 +53,8 @@ function Questions() {
         <div>
             <h1>Questions</h1>
             {renderQuestions}
-            <Link to={{pathname:"/results"}}>
-                <button onClick={
-                    ()=>{
-                        let answersArray=[];
-                        questionList.forEach((question)=>{
-                            let answer=document.querySelector(`input[name="${question.id}"]:checked`);
-                            if(answer){
-                                answersArray.push(answer.value);
-                            }
-                        })
-                        setAnswers(answersArray);
-                        console.log("Questions sayfasındaki cevaplar"+answersArray);
-                    }
-                }>Submit</button>
+            <Link to={{pathname:"/results"}} answers={answers}>
+                <button onClick={updateAnswers}>Submit</button>
             </Link>
         </div>
     )
